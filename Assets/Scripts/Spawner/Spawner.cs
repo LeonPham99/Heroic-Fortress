@@ -4,25 +4,63 @@ using UnityEngine;
 
 public enum SpawnModes
 {
-    Fixex,
+    Fixed,
     Random
 }
-
 public class Spawner : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private SpawnModes spawnMode = SpawnModes.Fixed;
+    [SerializeField] private int enemyCount = 10;
+    [SerializeField] private GameObject testGO;
+
+    [Header("Fixed Delay")]
     [SerializeField] private float delayBtwSpawns;
+
+    [Header("Fixed Delay")]
     [SerializeField] private float minRandomDelay;
     [SerializeField] private float maxRandomDelay;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    private float _spawnTimer;
+    private int _enemiesSpawned;
+
+
     void Update()
     {
-        
+        _spawnTimer -= Time.deltaTime;
+        if(_spawnTimer < 0 )
+        {
+            _spawnTimer = GetRandomDelay();
+            if (_enemiesSpawned < enemyCount )
+            {
+                _enemiesSpawned++;
+                SpawnEnemy();
+            }
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        Instantiate(testGO, transform.position, Quaternion.identity);
+    }
+
+    private float GetSpawnDelay()
+    {
+        float delay = 0f;
+        if (spawnMode == SpawnModes.Fixed)
+        {
+            delay = delayBtwSpawns;
+        }
+        else
+        {
+            delay = GetRandomDelay();
+        }
+        return delay;
+    }
+
+    private float GetRandomDelay()
+    {
+        float randomTimer = Random.Range(minRandomDelay, maxRandomDelay);
+        return randomTimer;
     }
 }
