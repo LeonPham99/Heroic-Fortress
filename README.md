@@ -15,10 +15,14 @@ Tiến độ dự án
   
    Tạo class ObjectPooling (Áp dụng Object Pooling Pattern)
    - Đảm nhận việc sinh ra các objects cần sử dụng và deactive toàn bộ objects enemy nếu chưa sử dụng.
-     
+   - Tạo vùng chứa cho các đối tượng được tải sẵn.  
      Object Pooling Pattern
      Điểm mạnh:
    - Tái sử dụng được các object enemy trong game tower defense và giảm thiểu memory fragmentation do Garbage Collector
      
      Điểm yếu:
    - Làm chậm quá trình khởi động của game (Vì sẽ sinh ra một danh sách objects cần sử dụng trong game)
+3. Tạo các Enemy di chuyển theo vị trí point đã định sẵn
+   - Tạo Enemies kẻ thù hoạt động di chuyển, bị thương và bỏ chạy
+   - Tạo Animation cho enemies bị die.
+   - Tạo Animation cho enemies đang chạy.
