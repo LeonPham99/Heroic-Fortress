@@ -25,3 +25,4 @@ Tiến độ dự án
 3. Tạo các Enemy di chuyển theo vị trí point đã định sẵn
    - Tạo Enemies kẻ thù hoạt động di chuyển, bị thương và bỏ chạy
    - Tạo Animation cho enemies bị die.
+   - Tạo Animation cho enemies đang chạy.
