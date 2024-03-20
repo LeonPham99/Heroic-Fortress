@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooling : MonoBehaviour
+public class ObjectPooler : MonoBehaviour
 {
     [SerializeField] private GameObject gameObjectPrefab;
 
-    [SerializeField] private int poolSize;
+    [SerializeField] private int poolSize = 10;
 
     private List<GameObject> _pool;
     private GameObject _poolContainer;
