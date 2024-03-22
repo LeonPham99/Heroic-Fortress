@@ -1,5 +1,7 @@
 Tiến độ dự án
 
+Phần I:
+
 1. Tạo dự án và các tập tin cần thiết (20240315)
    Dùng Unity Version: 2022.3.20f1
    
