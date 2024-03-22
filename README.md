@@ -3,9 +3,10 @@ Tiến độ dự án
 Phần I:
 
 1. Tạo dự án và các tập tin cần thiết (20240315)
+   
    Dùng Unity Version: 2022.3.20f1
    
-2. Tạo chức năng spawn enemy
+3. Tạo chức năng spawn enemy
    
    Tạo class Waypoint
    - Chức năng lớp này tạo con đường các vị trí trong một không gian, tham chiếu để di chuyển các đối tượng trò chơi theo tham chiếu này
