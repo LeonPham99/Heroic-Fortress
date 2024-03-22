@@ -6,7 +6,8 @@ Phần I:
    Dùng Unity Version: 2022.3.20f1
    
 2. Tạo chức năng spawn enemy
-   Tạo class Waypoint (20240316)
+   
+   Tạo class Waypoint
    - Chức năng lớp này tạo con đường các vị trí trong một không gian, tham chiếu để di chuyển các đối tượng trò chơi theo tham chiếu này
 
    Tạo class WaypointEditor
@@ -24,7 +25,8 @@ Phần I:
      
      Điểm yếu:
    - Làm chậm quá trình khởi động của game (Vì sẽ sinh ra một danh sách objects cần sử dụng trong game)
-3. Tạo các Enemy di chuyển theo vị trí point đã định sẵn
+     
+4. Tạo các Enemy di chuyển theo vị trí point đã định sẵn
    - Tạo Enemies kẻ thù hoạt động di chuyển, bị thương và bỏ chạy
    - Tạo Animation cho enemies bị die.
    - Tạo Animation cho enemies đang chạy.
