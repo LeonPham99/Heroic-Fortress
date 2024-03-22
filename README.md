@@ -61,4 +61,4 @@ Phần II: Enemy
    - Lấy thành phần của SpriteRenderer
    - Tạo chức năng Rotate và thêm vào logic để flip sprite của enemy
      
-  Note: Thanh máu của enemy bị thay đổi khi nhân vật flip sang trái (Đang sửa)
+  Note: Thanh máu của enemy bị thay đổi vị trí khi enemy flip sang trái (Đang sửa)
