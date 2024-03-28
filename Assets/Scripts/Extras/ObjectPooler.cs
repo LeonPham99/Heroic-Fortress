@@ -1,11 +1,11 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    [SerializeField] private GameObject gameObjectPrefab;
-
+    [SerializeField] private GameObject prefab;
     [SerializeField] private int poolSize = 10;
 
     private List<GameObject> _pool;
@@ -14,21 +14,22 @@ public class ObjectPooler : MonoBehaviour
     private void Awake()
     {
         _pool = new List<GameObject>();
-        _poolContainer = new GameObject($"Pool - {gameObjectPrefab.name}");
-        CreatePooling();
+        _poolContainer = new GameObject($"Pool - {prefab.name}");
+        
+        CreatePooler();
     }
 
-    private void CreatePooling()
+    private void CreatePooler()
     {
         for (int i = 0; i < poolSize; i++)
         {
             _pool.Add(CreateInstance());
         }
     }
-
+    
     private GameObject CreateInstance()
     {
-        GameObject newInstance = Instantiate(gameObjectPrefab);
+        GameObject newInstance = Instantiate(prefab);
         newInstance.transform.SetParent(_poolContainer.transform);
         newInstance.SetActive(false);
         return newInstance;
@@ -43,6 +44,12 @@ public class ObjectPooler : MonoBehaviour
                 return _pool[i];
             }
         }
+        
         return CreateInstance();
+    }
+
+    public static void ReturnToPool(GameObject instance)
+    {
+        instance.SetActive(false);
     }
 }

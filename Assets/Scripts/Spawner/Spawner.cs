@@ -1,38 +1,51 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum SpawnModes
 {
     Fixed,
     Random
 }
+
 public class Spawner : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private SpawnModes spawnMode = SpawnModes.Fixed;
     [SerializeField] private int enemyCount = 10;
-    [SerializeField] private GameObject testGO;
+    [SerializeField] private float delayBtwWaves = 1f;
 
     [Header("Fixed Delay")]
     [SerializeField] private float delayBtwSpawns;
-
-    [Header("Fixed Delay")]
+    
+    [Header("Random Delay")]
     [SerializeField] private float minRandomDelay;
     [SerializeField] private float maxRandomDelay;
 
     private float _spawnTimer;
     private int _enemiesSpawned;
-
+    private int _enemiesRamaining;
+    
     private ObjectPooler _pooler;
+    private Waypoint _waypoint;
 
-    void Update()
+    private void Start()
+    {
+        _pooler = GetComponent<ObjectPooler>();
+        _waypoint = GetComponent<Waypoint>();
+
+        _enemiesRamaining = enemyCount;
+    }
+
+    private void Update()
     {
         _spawnTimer -= Time.deltaTime;
-        if(_spawnTimer < 0 )
+        if (_spawnTimer < 0)
         {
-            _spawnTimer = GetRandomDelay();
-            if (_enemiesSpawned < enemyCount )
+            _spawnTimer = GetSpawnDelay();
+            if (_enemiesSpawned < enemyCount)
             {
                 _enemiesSpawned++;
                 SpawnEnemy();
@@ -43,7 +56,12 @@ public class Spawner : MonoBehaviour
     private void SpawnEnemy()
     {
         GameObject newInstance = _pooler.GetInstanceFromPool();
-        newInstance.SetActive( true );
+        Enemy enemy = newInstance.GetComponent<Enemy>();
+        enemy.Waypoint = _waypoint;
+        enemy.ResetEnemy();
+
+        enemy.transform.localPosition = transform.position;
+        newInstance.SetActive(true);
     }
 
     private float GetSpawnDelay()
@@ -57,12 +75,42 @@ public class Spawner : MonoBehaviour
         {
             delay = GetRandomDelay();
         }
+
         return delay;
     }
-
+    
     private float GetRandomDelay()
     {
         float randomTimer = Random.Range(minRandomDelay, maxRandomDelay);
         return randomTimer;
+    }
+
+    private IEnumerator NextWave()
+    {
+        yield return new WaitForSeconds(delayBtwWaves);
+        _enemiesRamaining = enemyCount;
+        _spawnTimer = 0f;
+        _enemiesSpawned = 0;
+    }
+    
+    private void RecordEnemy(Enemy enemy)
+    {
+        _enemiesRamaining--;
+        if (_enemiesRamaining <= 0)
+        {
+            StartCoroutine(NextWave());
+        }
+    }
+    
+    private void OnEnable()
+    {
+        Enemy.OnEndReached += RecordEnemy;
+        EnemyHealth.OnEnemyKilled += RecordEnemy;
+    }
+
+    private void OnDisable()
+    {
+        Enemy.OnEndReached -= RecordEnemy;
+        EnemyHealth.OnEnemyKilled -= RecordEnemy;
     }
 }
