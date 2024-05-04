@@ -86,12 +86,6 @@ public class SaveLoadManager : SingleTon<SaveLoadManager>
             GameData loadedData = JsonUtility.FromJson<GameData>(json);
             if (loadedData != null)
                 return loadedData;
-            else
-                Debug.LogError("Failed to parse game data.");
-        }
-        else
-        {
-            Debug.LogError("Save file not found: " + saveName);
         }
         return null;
     }
