@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class TankTurretProjectile : TurretProjectile
+{
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    protected override void Update()
+    {
+        if (Time.time > _nextAttackTime)
+        {
+            if (_turret.CurrentEnemyTarget != null 
+                && _turret.CurrentEnemyTarget.EnemyHealth.CurrentHealth > 0)
+            {
+                FireProjectile(_turret.CurrentEnemyTarget);
+            }
+            _nextAttackTime = Time.time + delayBetweenAttacks;
+        }
+    }
+
+    protected override void LoadProjectile()
+    {
+
+    }
+
+    private void FireProjectile(Enemy enemy)
+    {
+        GameObject instance = _pooling.GetInstanceFromPool();
+        instance.transform.position = projectileSpawnPosition.position;
+
+        Projectile projectile = instance.GetComponent<Projectile>();
+        _currentProjectileLoaded = projectile;
+        _currentProjectileLoaded.TurretOwner = this;
+        _currentProjectileLoaded.ResetProjectile();
+        _currentProjectileLoaded.SetEnemy(enemy);
+        _currentProjectileLoaded.Damage = Damage;
+        instance.SetActive(true);
+
+        _audioManager.PlayEffect(shootingSound);
+    }
+}

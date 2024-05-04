@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d1018015a875440ba4b4cfd1d5d1ab, type: 3}
+  m_Name: Killed_500_Enemies
+  m_EditorClassIdentifier: 
+  ID: Killed500
+  Title: 500 Enemies Killed
+  ProgressToUnlock: 500
+  GoldReward: 750
+  Sprite: {fileID: -1481838999, guid: 0403a6f9fd4c6b148bf88c33604a2c73, type: 3}
